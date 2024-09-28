@@ -8,7 +8,7 @@ const Topbar = () => {
                 className="navbar-brand ps-3 text-dark fw-bold"
                 href="index.html"
             >
-                Eshop
+                Bloomzy
             </Link>
             <button
                 className="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0"

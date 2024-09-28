@@ -10,14 +10,15 @@ import Footer from "@/Layouts/frontend/Footer";
 import FooterBottom from "@/Layouts/frontend/FooterBottom";
 import MainMenu from "@/Layouts/frontend/MainMenu";
 import GuestLayout from "@/Layouts/GuestLayout";
-import { Head, Link } from "@inertiajs/react";
+import { Head, Link, usePage } from "@inertiajs/react";
 
 export default function Welcome() {
+    const { props } = usePage();
     return (
         <>
             <GuestLayout>
                 <Head title="Shameem" />
-                <MainMenu />
+                <MainMenu sliders={props.sliders}/>
                 <Feature />
                 <ProductFeature />
 

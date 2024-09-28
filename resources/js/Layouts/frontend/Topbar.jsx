@@ -9,7 +9,8 @@ const Topbar = () => {
                     <div className="col-md-3">
                         <div className="logo">
                             <a href="index.html">
-                                <img src="img/logo.png" alt="Logo" />
+                                {/* <img src="img/logo.png" alt="Logo" /> */}
+                               <h2> Bloomzy Eligance</h2>
                             </a>
                         </div>
                     </div>

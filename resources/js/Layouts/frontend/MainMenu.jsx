@@ -3,7 +3,7 @@ import NewsItem from "@/Components/frontend/NewsItem";
 import Slider from "@/Components/frontend/Slider";
 import React from "react";
 
-const MainMenu = () => {
+const MainMenu = ({ sliders }) => {
     return (
         <div className="header">
             <div className="container-fluid">
@@ -12,7 +12,7 @@ const MainMenu = () => {
                        <MenuItem />
                     </div>
                     <div className="col-md-6">
-                       <Slider />
+                       <Slider sliders={sliders} />
                     </div>
                     <div className="col-md-3">
                       <NewsItem />

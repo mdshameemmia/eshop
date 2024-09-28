@@ -10,12 +10,20 @@ const Sidebar = () => {
             >
                 <div className="sb-sidenav-menu">
                     <div className="nav ">
-                        <Link className="nav-link fw-bold" href="index.html">
+                        <Link className="nav-link fw-bold" href="/">
                             <div className="sb-nav-link-icon">
                                 <i className="fas fa-tachometer-alt"></i>
                             </div>
                             Dashboard
                         </Link>
+
+                        <Link className="nav-link fw-bold" href={route('sliders.index')}>
+                            <div className="sb-nav-link-icon">
+                                <i className="fas fa-tachometer-alt"></i>
+                            </div>
+                            Slider
+                        </Link>
+
 
                         <Link
                             className="nav-link collapsed fw-bold"

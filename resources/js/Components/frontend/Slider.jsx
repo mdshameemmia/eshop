@@ -1,6 +1,7 @@
 import React from "react";
 
-const Slider = () => {
+const Slider = ({ sliders }) => {
+    console.log(sliders, "testing");
     return (
         <div
             id="carouselExampleControls"
@@ -8,66 +9,48 @@ const Slider = () => {
             data-ride="carousel"
         >
             <ol className="carousel-indicators">
-                <li
-                    data-target="#carouselExampleIndicators"
-                    data-slide-to="0"
-                    className="active"
-                ></li>
-                <li
+                {sliders.map((slider, index) => {
+                    return (
+                        <li
+                            data-target="#carouselExampleIndicators"
+                            data-slide-to={index}
+                            className={
+                                sliders[0].id == slider.id ? "active" : ""
+                            }
+                        ></li>
+                    );
+                })}
+                {/* <li
                     data-target="#carouselExampleIndicators"
                     data-slide-to="1"
                 ></li>
                 <li
                     data-target="#carouselExampleIndicators"
                     data-slide-to="2"
-                ></li>
+                ></li> */}
             </ol>
             <div className="carousel-inner header-slider normal-slider">
-                <div className="carousel-item header-slider-item  active">
-                    <img
-                        className="d-block w-100"
-                        src="img/slider-1.jpg"
-                        alt="First slide"
-                        height="400"
-                    />
-                    <div className="header-slider-caption">
-                        <p>Some text goes here that describes the image</p>
-                        <a className="btn" href="">
-                            <i className="fa fa-shopping-cart"></i>
-                            Shop Now
-                        </a>
-                    </div>
-                </div>
-                <div className="carousel-item header-slider-item ">
-                    <img
-                        className="d-block w-100"
-                        src="img/slider-2.jpg"
-                        alt="Second slide"
-                        height="400"
-                    />
-                    <div className="header-slider-caption">
-                        <p>Some text goes here that describes the image</p>
-                        <a className="btn" href="">
-                            <i className="fa fa-shopping-cart"></i>
-                            Shop Now
-                        </a>
-                    </div>
-                </div>
-                <div className="carousel-item header-slider-item ">
-                    <img
-                        className="d-block w-100"
-                        src="img/slider-3.jpg"
-                        alt="Third slide"
-                        height="400"
-                    />
-                    <div className="header-slider-caption">
-                        <p>Some text goes here that describes the image</p>
-                        <a className="btn" href="">
-                            <i className="fa fa-shopping-cart"></i>
-                            Shop Now
-                        </a>
-                    </div>
-                </div>
+                {sliders.map((slider, index) => {
+                    return (
+                        <div key={index} className={`carousel-item header-slider-item  ${sliders[0].id == slider.id? 'active':''}`}>
+                            <img
+                                className="d-block w-100"
+                                src={window.APP_URL+ "/storage/" +`${slider.img}`}
+                                alt="First slide"
+                                height="400"
+                            />
+                            <div className="header-slider-caption">
+                                <p>
+                                    {slider.slider_information}
+                                </p>
+                                <a className="btn" href="">
+                                    <i className="fa fa-shopping-cart"></i>
+                                    Shop Now
+                                </a>
+                            </div>
+                        </div>
+                    );
+                })}
             </div>
             <a
                 className="carousel-control-prev"
