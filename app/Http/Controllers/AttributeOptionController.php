@@ -2,25 +2,27 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\AttributeOptionResource;
 use Exception;
 use Inertia\Inertia;
-use App\Models\Category;
-use Illuminate\Support\Arr;
-use Illuminate\Support\Str;
+use App\Models\Attribute;
 use Illuminate\Http\Request;
+use App\Models\AttributeOption;
 use Illuminate\Support\Facades\Session;
 
-class CategoryController extends Controller
+class AttributeOptionController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        return Inertia::render('Category/Index', [
-            'categories'   => Category::all(),
+        $attributeOptions  = AttributeOptionResource::collection(AttributeOption::all());
+
+        return Inertia::render('AttributeOption/Index', [
+            'attributeOptions'   => $attributeOptions,
             'message'   => Session::has('message') ? Session::get('message') : null,
-            'columns'   => Category::$indexColumnKeys
+            'columns'   => AttributeOption::$indexColumnKeys
         ]);
     }
 
@@ -29,7 +31,10 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        return Inertia::render("Category/Create", ['csrfToken' => csrf_token()]);
+        return Inertia::render("AttributeOption/Create", [
+            'csrfToken' => csrf_token(),
+            'attributes'=> Attribute::all()
+        ]);
     }
 
     /**
@@ -40,10 +45,9 @@ class CategoryController extends Controller
 
         try {
             $data = $request->except('_token');
-            $data['slug'] = Str::slug($request->description,'-');
-            Category::create($data);
+            AttributeOption::create($data);
 
-            return redirect()->route('categories.index')->with('message', 'Successfully stored');
+            return redirect()->route('attribute-options.index')->with('message', 'Successfully stored');
         } catch (Exception $e) {
             return response()->json([
                 'message'   => $e->getMessage()
@@ -63,25 +67,25 @@ class CategoryController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Category $category)
+    public function edit(AttributeOption $attributeOption)
     {
-        return Inertia::render('Category/Edit', [
+        return Inertia::render('AttributeOption/Edit', [
             'csrfToken' => csrf_token(),
-            'category'    => $category
+            'attributeOption'    => $attributeOption,
+            'attributes'=> Attribute::all()
         ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Category $category)
+    public function update(Request $request, AttributeOption $attributeOption)
     {
         try {
             $data = $request->except('_token');
-            $data['slug']   = Str::slug($request->description,'-');
-            $category->update($data);
+            $attributeOption->update($data);
 
-            return redirect()->route('categories.index')->with('message', 'Successfully updated');
+            return redirect()->route('attribute-options.index')->with('message', 'Successfully updated');
         } catch (Exception $e) {
             return response()->json([
                 'message'   => $e->getMessage()
@@ -92,11 +96,11 @@ class CategoryController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Category $category)
+    public function destroy(AttributeOption $attributeOption)
     {
         try {
-            $category->delete();
-            return redirect()->route('categories.index')->with('message', "Successfully deleted");
+            $attributeOption->delete();
+            return redirect()->route('attribute-options.index')->with('message', "Successfully deleted");
         } catch (Exception $e) {
             return response()->json([
                 'message'   => $e->getMessage()

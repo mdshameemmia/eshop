@@ -4,23 +4,21 @@ namespace App\Http\Controllers;
 
 use Exception;
 use Inertia\Inertia;
-use App\Models\Category;
-use Illuminate\Support\Arr;
-use Illuminate\Support\Str;
+use App\Models\Discount;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 
-class CategoryController extends Controller
+class DiscountController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        return Inertia::render('Category/Index', [
-            'categories'   => Category::all(),
+        return Inertia::render('Discount/Index', [
+            'attributes'   => Discount::all(),
             'message'   => Session::has('message') ? Session::get('message') : null,
-            'columns'   => Category::$indexColumnKeys
+            'columns'   => Discount::$indexColumnKeys
         ]);
     }
 
@@ -29,7 +27,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        return Inertia::render("Category/Create", ['csrfToken' => csrf_token()]);
+        return Inertia::render("Discount/Create", ['csrfToken' => csrf_token()]);
     }
 
     /**
@@ -40,10 +38,9 @@ class CategoryController extends Controller
 
         try {
             $data = $request->except('_token');
-            $data['slug'] = Str::slug($request->description,'-');
-            Category::create($data);
+            Discount::create($data);
 
-            return redirect()->route('categories.index')->with('message', 'Successfully stored');
+            return redirect()->route('discounts.index')->with('message', 'Successfully stored');
         } catch (Exception $e) {
             return response()->json([
                 'message'   => $e->getMessage()
@@ -63,25 +60,24 @@ class CategoryController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Category $category)
+    public function edit(Discount $discount)
     {
-        return Inertia::render('Category/Edit', [
+        return Inertia::render('Discount/Edit', [
             'csrfToken' => csrf_token(),
-            'category'    => $category
+            'discount'    => $discount
         ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Category $category)
+    public function update(Request $request, Discount $discount)
     {
         try {
             $data = $request->except('_token');
-            $data['slug']   = Str::slug($request->description,'-');
-            $category->update($data);
+            $discount->update($data);
 
-            return redirect()->route('categories.index')->with('message', 'Successfully updated');
+            return redirect()->route('discounts.index')->with('message', 'Successfully updated');
         } catch (Exception $e) {
             return response()->json([
                 'message'   => $e->getMessage()
@@ -92,11 +88,11 @@ class CategoryController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Category $category)
+    public function destroy(Discount $discount)
     {
         try {
-            $category->delete();
-            return redirect()->route('categories.index')->with('message', "Successfully deleted");
+            $discount->delete();
+            return redirect()->route('discounts.index')->with('message', "Successfully deleted");
         } catch (Exception $e) {
             return response()->json([
                 'message'   => $e->getMessage()

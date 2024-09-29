@@ -14,6 +14,7 @@ const Slider = ({ sliders }) => {
                         <li
                             data-target="#carouselExampleIndicators"
                             data-slide-to={index}
+                            key={index}
                             className={
                                 sliders[0].id == slider.id ? "active" : ""
                             }

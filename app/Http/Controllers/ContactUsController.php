@@ -4,23 +4,22 @@ namespace App\Http\Controllers;
 
 use Exception;
 use Inertia\Inertia;
-use App\Models\Category;
-use Illuminate\Support\Arr;
-use Illuminate\Support\Str;
+use App\Models\ContactUs;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
+use Mockery\Matcher\Contains;
 
-class CategoryController extends Controller
+class ContactUsController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        return Inertia::render('Category/Index', [
-            'categories'   => Category::all(),
+        return Inertia::render('ContactUs/Index', [
+            'contactUs'   => ContactUs::all(),
             'message'   => Session::has('message') ? Session::get('message') : null,
-            'columns'   => Category::$indexColumnKeys
+            'columns'   => ContactUs::$indexColumnKeys
         ]);
     }
 
@@ -29,7 +28,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        return Inertia::render("Category/Create", ['csrfToken' => csrf_token()]);
+        return Inertia::render("ContactUs/Create", ['csrfToken' => csrf_token()]);
     }
 
     /**
@@ -40,18 +39,15 @@ class CategoryController extends Controller
 
         try {
             $data = $request->except('_token');
-            $data['slug'] = Str::slug($request->description,'-');
-            Category::create($data);
+            ContactUs::create($data);
 
-            return redirect()->route('categories.index')->with('message', 'Successfully stored');
+            return redirect()->route('contact-us.index')->with('message', 'Successfully stored');
         } catch (Exception $e) {
             return response()->json([
                 'message'   => $e->getMessage()
             ]);
         }
     }
-
-
     /**
      * Display the specified resource.
      */
@@ -63,40 +59,39 @@ class CategoryController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Category $category)
+    public function edit( $contactUs)
     {
-        return Inertia::render('Category/Edit', [
+        return Inertia::render('ContactUs/Edit', [
             'csrfToken' => csrf_token(),
-            'category'    => $category
+            'contactUs'    => ContactUs::findOrFail($contactUs)
         ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Category $category)
+    public function update(Request $request, $id)
     {
         try {
             $data = $request->except('_token');
-            $data['slug']   = Str::slug($request->description,'-');
-            $category->update($data);
+            $contactUs = ContactUs::findOrFail($id);
+            $contactUs->update($data);
 
-            return redirect()->route('categories.index')->with('message', 'Successfully updated');
+            return redirect()->route('contact-us.index')->with('message', 'Successfully updated');
         } catch (Exception $e) {
             return response()->json([
                 'message'   => $e->getMessage()
             ]);
         }
     }
-
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Category $category)
+    public function destroy($id)
     {
         try {
-            $category->delete();
-            return redirect()->route('categories.index')->with('message', "Successfully deleted");
+            ContactUs::findOrFail($id)->delete();
+            return redirect()->route('contact-us.index')->with('message', "Successfully deleted");
         } catch (Exception $e) {
             return response()->json([
                 'message'   => $e->getMessage()

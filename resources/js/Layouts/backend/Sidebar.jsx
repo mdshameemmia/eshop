@@ -10,20 +10,67 @@ const Sidebar = () => {
             >
                 <div className="sb-sidenav-menu">
                     <div className="nav ">
-                        <Link className="nav-link fw-bold" href="/">
+                        <Link className="nav-link fw-bold" href="/dashboard">
                             <div className="sb-nav-link-icon">
                                 <i className="fas fa-tachometer-alt"></i>
                             </div>
                             Dashboard
                         </Link>
 
-                        <Link className="nav-link fw-bold" href={route('sliders.index')}>
+                        <Link
+                            className="nav-link fw-bold"
+                            href={route("sliders.index")}
+                        >
                             <div className="sb-nav-link-icon">
                                 <i className="fas fa-tachometer-alt"></i>
                             </div>
                             Slider
                         </Link>
-
+                        <Link
+                            className="nav-link fw-bold"
+                            href={route("categories.index")}
+                        >
+                            <div className="sb-nav-link-icon">
+                                <i className="fas fa-tachometer-alt"></i>
+                            </div>
+                            Categories
+                        </Link>
+                        <Link
+                            className="nav-link fw-bold"
+                            href={route("attributes.index")}
+                        >
+                            <div className="sb-nav-link-icon">
+                                <i className="fas fa-tachometer-alt"></i>
+                            </div>
+                            Attributes
+                        </Link>
+                        <Link
+                            className="nav-link fw-bold"
+                            href={route("contact-us.index")}
+                        >
+                            <div className="sb-nav-link-icon">
+                                <i className="fas fa-tachometer-alt"></i>
+                            </div>
+                            Contact us
+                        </Link>
+                        <Link
+                            className="nav-link fw-bold"
+                            href={route("attribute-options.index")}
+                        >
+                            <div className="sb-nav-link-icon">
+                                <i className="fas fa-tachometer-alt"></i>
+                            </div>
+                            Attribute Options
+                        </Link>
+                        <Link
+                            className="nav-link fw-bold"
+                            href={route("discounts.index")}
+                        >
+                            <div className="sb-nav-link-icon">
+                                <i className="fas fa-tachometer-alt"></i>
+                            </div>
+                            Discount 
+                        </Link>
 
                         <Link
                             className="nav-link collapsed fw-bold"
