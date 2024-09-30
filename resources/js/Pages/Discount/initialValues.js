@@ -1,6 +1,6 @@
 export default function initialValues(data=null){
     return {
-        code : data?.code,
+        code: data?.code,
         description:data?.description,
         discount_type: data?.discount_type,
         value: data?.value,

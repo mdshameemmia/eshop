@@ -21,21 +21,25 @@ const DiscountForm = () => {
                 <label htmlFor="" className="form-label p-0 m-0">
                     Discount Type(percentage)
                 </label>
-                <Field name="discount_type" className="form-control" />
+                <Field as="select" name="discount_type" className="form-control" >
+                      <option value="">Select One</option>
+                      <option value="Percentage">Percentage</option>
+                      <option value="Amount">Amount</option>
+                    </Field>
                 <ErrorMessage name="discount_type" component="div" />
             </div>
             <div className="my-2">
                 <label htmlFor="" className="form-label p-0 m-0">
                     Value
                 </label>
-                <Field name="value" className="form-control" as="textarea" />
+                <Field name="value" className="form-control" />
                 <ErrorMessage name="value" component="div" />
             </div>
             <div className="my-2">
                 <label htmlFor="" className="form-label p-0 m-0">
                     Expired At
                 </label>
-                <Field name="expires_at" className="form-control" as="textarea" />
+                <Field type="date" name="expires_at" className="form-control" />
                 <ErrorMessage name="expires_at" component="div" />
             </div>
         </>

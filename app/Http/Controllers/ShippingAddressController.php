@@ -4,21 +4,24 @@ namespace App\Http\Controllers;
 
 use Exception;
 use Inertia\Inertia;
-use App\Models\Discount;
 use Illuminate\Http\Request;
+use App\Models\ShippingAddress;
 use Illuminate\Support\Facades\Session;
+use App\Http\Resources\ShippingAddressResource;
 
-class DiscountController extends Controller
+class ShippingAddressController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        return Inertia::render('Discount/Index', [
-            'discounts'   => Discount::all(),
+        $shippingAddresses  = ShippingAddressResource::collection(ShippingAddress::all());
+        
+        return Inertia::render('ShippingAddress/Index', [
+            'shippingAddresses'   => $shippingAddresses,
             'message'   => Session::has('message') ? Session::get('message') : null,
-            'columns'   => Discount::$indexColumnKeys
+            'columns'   => ShippingAddress::$indexColumnKeys
         ]);
     }
 
@@ -27,7 +30,7 @@ class DiscountController extends Controller
      */
     public function create()
     {
-        return Inertia::render("Discount/Create", ['csrfToken' => csrf_token()]);
+        return Inertia::render("ShippingAddress/Create", ['csrfToken' => csrf_token()]);
     }
 
     /**
@@ -38,9 +41,10 @@ class DiscountController extends Controller
 
         try {
             $data = $request->except('_token');
-            Discount::create($data);
+            $data['user_id'] = auth()->user()->id;
+            ShippingAddress::create($data);
 
-            return redirect()->route('discounts.index')->with('message', 'Successfully stored');
+            return redirect()->route('shipping-addresses.index')->with('message', 'Successfully stored');
         } catch (Exception $e) {
             return response()->json([
                 'message'   => $e->getMessage()
@@ -60,24 +64,24 @@ class DiscountController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Discount $discount)
+    public function edit(ShippingAddress $shippingAddress)
     {
-        return Inertia::render('Discount/Edit', [
+        return Inertia::render('ShippingAddress/Edit', [
             'csrfToken' => csrf_token(),
-            'discount'    => $discount
+            'shippingAddress'    => $shippingAddress
         ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Discount $discount)
+    public function update(Request $request, ShippingAddress $shippingAddress)
     {
         try {
             $data = $request->except('_token');
-            $discount->update($data);
+            $shippingAddress->update($data);
 
-            return redirect()->route('discounts.index')->with('message', 'Successfully updated');
+            return redirect()->route('shipping-addresses.index')->with('message', 'Successfully updated');
         } catch (Exception $e) {
             return response()->json([
                 'message'   => $e->getMessage()
@@ -88,11 +92,11 @@ class DiscountController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Discount $discount)
+    public function destroy(ShippingAddress $shippingAddress)
     {
         try {
-            $discount->delete();
-            return redirect()->route('discounts.index')->with('message', "Successfully deleted");
+            $shippingAddress->delete();
+            return redirect()->route('shipping-addresses.index')->with('message', "Successfully deleted");
         } catch (Exception $e) {
             return response()->json([
                 'message'   => $e->getMessage()

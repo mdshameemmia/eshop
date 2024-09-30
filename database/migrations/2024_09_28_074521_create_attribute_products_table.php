@@ -11,11 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('product_attributes', function (Blueprint $table) {
+        Schema::create('attribute_products', function (Blueprint $table) {
             $table->id(); // Primary key
             $table->unsignedBigInteger('product_id')->nullable(); // Foreign key to products table
             $table->unsignedBigInteger('attribute_id')->nullable(); // Foreign key to attributes table
-            $table->unsignedBigInteger('option_id')->nullable(); // Foreign key to attribute options table
+            $table->unsignedBigInteger('attribute_option_id')->nullable(); // Foreign key to attribute options table
             $table->timestamps();
         });
     }
@@ -25,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('product_attributes');
+        Schema::dropIfExists('attribute_products');
     }
 };

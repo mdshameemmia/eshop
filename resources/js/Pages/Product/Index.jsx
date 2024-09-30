@@ -15,9 +15,9 @@ const Index = () => {
     return (
         <AuthenticatedLayout>
             <div className="container col-12 d-flex justify-around mt-3">
-                <h2 className="col-1">Discount </h2>
-                <div className="col-10"></div>
-                <Link href={route("discounts.create")}>
+                <h2 className="col-3">Shipping Address </h2>
+                <div className="col-8"></div>
+                <Link href={route("products.create")}>
                     <button className=" btn btn-sm btn-rounded btn-primary p-2">
                         Add New{" "}
                     </button>
@@ -25,10 +25,10 @@ const Index = () => {
             </div>
             <div className="card-body">
                 <CustomDataTables
-                    data={props.discounts}
+                    data={props.products.data}
                     columns={props.columns}
-                    editAction="discounts.edit"
-                    destroyAction="discounts"
+                    editAction="products.edit"
+                    destroyAction="products"
                 />
             </div>
         </AuthenticatedLayout>

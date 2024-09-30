@@ -46,15 +46,6 @@ const Sidebar = () => {
                         </Link>
                         <Link
                             className="nav-link fw-bold"
-                            href={route("contact-us.index")}
-                        >
-                            <div className="sb-nav-link-icon">
-                                <i className="fas fa-tachometer-alt"></i>
-                            </div>
-                            Contact us
-                        </Link>
-                        <Link
-                            className="nav-link fw-bold"
                             href={route("attribute-options.index")}
                         >
                             <div className="sb-nav-link-icon">
@@ -62,6 +53,27 @@ const Sidebar = () => {
                             </div>
                             Attribute Options
                         </Link>
+
+                        <Link
+                            className="nav-link fw-bold"
+                            href={route("products.index")}
+                        >
+                            <div className="sb-nav-link-icon">
+                                <i className="fas fa-tachometer-alt"></i>
+                            </div>
+                            Products
+                        </Link>
+
+                        <Link
+                            className="nav-link fw-bold"
+                            href={route("contact-us.index")}
+                        >
+                            <div className="sb-nav-link-icon">
+                                <i className="fas fa-tachometer-alt"></i>
+                            </div>
+                            Contact us
+                        </Link>
+                       
                         <Link
                             className="nav-link fw-bold"
                             href={route("discounts.index")}
@@ -70,6 +82,15 @@ const Sidebar = () => {
                                 <i className="fas fa-tachometer-alt"></i>
                             </div>
                             Discount 
+                        </Link>
+                        <Link
+                            className="nav-link fw-bold"
+                            href={route("shipping-addresses.index")}
+                        >
+                            <div className="sb-nav-link-icon">
+                                <i className="fas fa-tachometer-alt"></i>
+                            </div>
+                            Shipping Address 
                         </Link>
 
                         <Link

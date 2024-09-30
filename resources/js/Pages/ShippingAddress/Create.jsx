@@ -6,7 +6,7 @@ import * as Yup from "yup";
 import SubmitButton from "@/Components/SubmitButton";
 import initialValues from "./initialValues";
 import validationSchema from "./validationSchema";
-import DiscountForm from "./DiscountForm";
+import ShippingAddressForm from "./ShippingAddressForm";
 
 const Create = () => {
     const { csrfToken } = usePage().props;
@@ -14,7 +14,7 @@ const Create = () => {
     const onSubmit = async (values, { setSubmitting }) => {
         values._token = csrfToken;
         try {
-            router.post("/discounts", values);
+            router.post("/shipping-addresses", values);
         } catch (error) {
             console.error("Error during submission:", error);
         } finally {
@@ -37,7 +37,7 @@ const Create = () => {
                     >
                         {(formik) => (
                             <Form>
-                                <DiscountForm />
+                                <ShippingAddressForm />
                                 <SubmitButton formik={formik} />
                             </Form>
                         )}

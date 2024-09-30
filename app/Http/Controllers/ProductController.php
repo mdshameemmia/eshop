@@ -4,21 +4,23 @@ namespace App\Http\Controllers;
 
 use Exception;
 use Inertia\Inertia;
-use App\Models\Discount;
+use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 
-class DiscountController extends Controller
+class ProductController extends Controller
 {
-    /**
+   /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        return Inertia::render('Discount/Index', [
-            'discounts'   => Discount::all(),
+        $products = Product::all();
+
+        return Inertia::render('Product/Index', [
+            'products'   => $products,
             'message'   => Session::has('message') ? Session::get('message') : null,
-            'columns'   => Discount::$indexColumnKeys
+            'columns'   => Product::$indexColumnKeys
         ]);
     }
 
@@ -27,7 +29,7 @@ class DiscountController extends Controller
      */
     public function create()
     {
-        return Inertia::render("Discount/Create", ['csrfToken' => csrf_token()]);
+        return Inertia::render("Product/Create", ['csrfToken' => csrf_token()]);
     }
 
     /**
@@ -38,9 +40,9 @@ class DiscountController extends Controller
 
         try {
             $data = $request->except('_token');
-            Discount::create($data);
+            Product::create($data);
 
-            return redirect()->route('discounts.index')->with('message', 'Successfully stored');
+            return redirect()->route('products.index')->with('message', 'Successfully stored');
         } catch (Exception $e) {
             return response()->json([
                 'message'   => $e->getMessage()
@@ -60,24 +62,24 @@ class DiscountController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Discount $discount)
+    public function edit(Product $product)
     {
-        return Inertia::render('Discount/Edit', [
+        return Inertia::render('Product/Edit', [
             'csrfToken' => csrf_token(),
-            'discount'    => $discount
+            'pr$product'    => $product
         ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Discount $discount)
+    public function update(Request $request, Product $product)
     {
         try {
             $data = $request->except('_token');
-            $discount->update($data);
+            $product->update($data);
 
-            return redirect()->route('discounts.index')->with('message', 'Successfully updated');
+            return redirect()->route('products.index')->with('message', 'Successfully updated');
         } catch (Exception $e) {
             return response()->json([
                 'message'   => $e->getMessage()
@@ -88,11 +90,11 @@ class DiscountController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Discount $discount)
+    public function destroy(Product $product)
     {
         try {
-            $discount->delete();
-            return redirect()->route('discounts.index')->with('message', "Successfully deleted");
+            $product->delete();
+            return redirect()->route('products.index')->with('message', "Successfully deleted");
         } catch (Exception $e) {
             return response()->json([
                 'message'   => $e->getMessage()

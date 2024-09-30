@@ -1,20 +1,22 @@
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head, usePage, router } from "@inertiajs/react";
 import React from "react";
-import { Formik, Form } from "formik";
+import { Formik, Form} from "formik";
 import * as Yup from "yup";
-import SubmitButton from "@/Components/SubmitButton";
 import initialValues from "./initialValues";
+import SubmitButton from "@/Components/SubmitButton";
 import validationSchema from "./validationSchema";
-import DiscountForm from "./DiscountForm";
+import ShippingAddressForm from "./ShippingAddressForm";
 
-const Create = () => {
-    const { csrfToken } = usePage().props;
+
+
+const Edit = () => {
+    const { csrfToken, shippingAddress } = usePage().props;
 
     const onSubmit = async (values, { setSubmitting }) => {
         values._token = csrfToken;
         try {
-            router.post("/discounts", values);
+            router.put(`/shipping-addresses/${shippingAddress.id}`, values);
         } catch (error) {
             console.error("Error during submission:", error);
         } finally {
@@ -24,20 +26,20 @@ const Create = () => {
 
     return (
         <AuthenticatedLayout>
-            <Head title="Discount Create" />
+            <Head title="Shipping Address Edit" />
             <div className="container">
                 <div className="card p-2">
                     <h2 className="text-center fw-bold card-header py-2 m-0">
-                        Discount
+                        Shipping Address
                     </h2>
                     <Formik
-                        initialValues={initialValues()}
+                        initialValues={initialValues(shippingAddress)}
                         onSubmit={onSubmit}
                         validationSchema={validationSchema(Yup)}
                     >
                         {(formik) => (
                             <Form>
-                                <DiscountForm />
+                               <ShippingAddressForm />
                                 <SubmitButton formik={formik} />
                             </Form>
                         )}
@@ -48,4 +50,4 @@ const Create = () => {
     );
 };
 
-export default Create;
+export default Edit;

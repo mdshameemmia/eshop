@@ -6,7 +6,7 @@ import * as Yup from "yup";
 import SubmitButton from "@/Components/SubmitButton";
 import initialValues from "./initialValues";
 import validationSchema from "./validationSchema";
-import DiscountForm from "./DiscountForm";
+import ProductForm from "./ProductForm";
 
 const Create = () => {
     const { csrfToken } = usePage().props;
@@ -14,7 +14,7 @@ const Create = () => {
     const onSubmit = async (values, { setSubmitting }) => {
         values._token = csrfToken;
         try {
-            router.post("/discounts", values);
+            router.post("/products", values);
         } catch (error) {
             console.error("Error during submission:", error);
         } finally {
@@ -24,11 +24,11 @@ const Create = () => {
 
     return (
         <AuthenticatedLayout>
-            <Head title="Discount Create" />
+            <Head title="Product Create" />
             <div className="container">
                 <div className="card p-2">
                     <h2 className="text-center fw-bold card-header py-2 m-0">
-                        Discount
+                        Product
                     </h2>
                     <Formik
                         initialValues={initialValues()}
@@ -37,7 +37,7 @@ const Create = () => {
                     >
                         {(formik) => (
                             <Form>
-                                <DiscountForm />
+                                <ProductForm />
                                 <SubmitButton formik={formik} />
                             </Form>
                         )}

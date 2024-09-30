@@ -30,7 +30,7 @@ const Edit = () => {
             <div className="container">
                 <div className="card p-2">
                     <h2 className="text-center fw-bold card-header py-2 m-0">
-                        Attribute
+                        Contact Us
                     </h2>
                     <Formik
                         initialValues={initialValues(contactUs)}

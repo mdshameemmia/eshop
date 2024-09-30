@@ -20,7 +20,11 @@ return new class extends Migration
             $table->integer('stock')->nullable(); // Available stock quantity (nullable)
             $table->unsignedInteger('category_id')->nullable(); // Foreign key to categories (nullable)
             $table->unsignedInteger('vendor_id')->nullable(); // Foreign key to users (nullable)
-            $table->string('sku', 100)->nullable(); // Stock Keeping Unit identifier (nullable)
+            $table->string('sku', 100)->nullable()->unique(); // Stock Keeping Unit identifier (nullable)
+            $table->boolean('is_new')->nullable();
+            $table->boolean('is_featured')->nullable();
+            $table->string('gender')->nullable();
+            $table->boolean('is_kids')->nullable();
             $table->timestamps(); // Creates created_at and updated_at timestamps
         });
     }

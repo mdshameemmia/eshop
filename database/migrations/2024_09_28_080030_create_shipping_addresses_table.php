@@ -14,12 +14,10 @@ return new class extends Migration
         Schema::create('shipping_addresses', function (Blueprint $table) {
             $table->id(); // Primary key
             $table->unsignedBigInteger('user_id')->nullable(); // Foreign key to users table
-            $table->string('address_line1', 255); // First line of address
-            $table->string('address_line2', 255)->nullable(); // Second line of address (nullable)
-            $table->string('city', 100); // City name
-            $table->string('state', 100); // State name
-            $table->string('zip_code', 20); // Zip or postal code
-            $table->string('country', 100); // Country name
+            $table->string('address', 255); // First line of address
+            $table->string('mobile', 20); // Zip or postal code
+            $table->string('upazilla', 100); // City name
+            $table->string('district', 100); // State name
             $table->timestamps(); // Creates created_at and updated_at timestamps
         });
     }

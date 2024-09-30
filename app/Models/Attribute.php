@@ -19,6 +19,12 @@ class Attribute extends Model
         'action'                => 'Action'
     ];
 
+    public function products()
+    {
+        return $this->belongsToMany(Product::class,'attribute_products')
+                    ->withPivot('attribute_option_id');
+    }
+
     public function attributeOptions()
     {
         return $this->hasMany(AttributeOption::class);

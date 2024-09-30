@@ -6,12 +6,14 @@ use Illuminate\Foundation\Application;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\SliderController;
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CategoryController;
-use App\Http\Controllers\AttributeController;
-use App\Http\Controllers\AttributeOptionController;
-use App\Http\Controllers\ContactUsController;
 use App\Http\Controllers\DiscountController;
+use App\Http\Controllers\AttributeController;
+use App\Http\Controllers\ContactUsController;
+use App\Http\Controllers\AttributeOptionController;
+use App\Http\Controllers\ShippingAddressController;
 
 Route::get('/', [HomeController::class,'index']);
 
@@ -35,7 +37,8 @@ Route::middleware('auth')->group(function () {
     Route::resource('orders',OrderController::class);
     Route::resource('contact-us',ContactUsController::class);
     Route::resource('discounts',DiscountController::class);
-
+    Route::resource('shipping-addresses',ShippingAddressController::class);
+    Route::resource('products',ProductController::class);
 
 });
 
